@@ -1,5 +1,5 @@
 # Printing_Reservaion
-Overview:
+##Overview:
 
 This is a web-based Appointment Slot Booking System built using FastAPI (Python) for the backend and HTML/CSS/JavaScript for the frontend. It allows users to book appointment slots in various departments on selected dates. The system integrates with MongoDB to store reservation data and ensures users can only book from available time slots.
 
@@ -8,7 +8,7 @@ It is designed to be clean, responsive, and user-friendly, making it easy for us
 
 ---
 
-Key Features:
+##Key Features:
 
 1. Slot Booking Interface
 
