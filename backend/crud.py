@@ -1,12 +1,19 @@
-from backend.models import Reservation
-from backend.database import reservations_collection
-from bson import ObjectId
+from sqlalchemy.orm import Session
+from backend import models, schemas
 
-async def create_reservation(reservation: Reservation):
-    reservation_dict = reservation.dict()
-    await reservations_collection.insert_one(reservation_dict)
-    return reservation_dict
+def get_reservation(db: Session, department: str, date: str, slot: str):
+    return db.query(models.Reservation).filter_by(
+        department=department,
+        date=date,
+        slot=slot
+    ).first()
 
-async def get_reservations():
-    reservations = await reservations_collection.find().to_list(length=100)
-    return reservations
+def create_reservation(db: Session, reservation: schemas.ReservationCreate):
+    db_reservation = models.Reservation(**reservation.dict())
+    db.add(db_reservation)
+    db.commit()
+    db.refresh(db_reservation)
+    return db_reservation
+
+def get_reservations(db: Session):
+    return db.query(models.Reservation).all()
